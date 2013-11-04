@@ -1,44 +1,66 @@
-/**
- * Program to create a linked list, print it's elements and  
- * find the moddle of the linked list
-
-*/
-
-public class anagram{
-
-
-	static boolean isAnagram(String word1, String word2){
-		if((word1 == null) || (word2 == null))
-		{
-			return false;
-		}else if(word1.length()!= word2.length()){
-			return false;
+class Node{
+	int data;
+	Node next;
+	Node(int data){
+		this.data = data;
+		this.next = null;
+	}
+}
+public class linkedList{
+	Node head;
+	Node last;
+	linkedList(){
+		head = null;
+		last = null;
+	}
+	void insert(int data){
+		Node nod = new Node(data);
+		if(head == null){
+			head = nod;
 		}else{
-			char [] array1 = word1.toCharArray();
-			char [] array2 = word2.toCharArray();
-			java.util.Arrays.sort(array1);
-			java.util.Arrays.sort(array2);
-			return java.util.Arrays.equals(array1,array2);
+			last.next = nod; 
 		}
-		
+		last = nod;
+	}
+	void printList(){
+		Node current = head;
+		System.out.println("Elements are");
+		while(current!=null){
+			System.out.println(current.data);
+			current = current.next;
+		}
+
+
+	}
+	
+	int middle(){
+		int count =0;
+		Node current = head,mid = null;
+		System.out.println("Middle element is");
+		while(current != null){
+			count++;
+			if(count == 1)
+				mid = head;
+			else if(count%2!=0)
+				mid = mid.next;
+			current = current.next;
+		}
+		return mid.data;
+
 	}
 
 
+public static void main(String [] args){
+	linkedList list = new linkedList();
+	list.insert(2);
+	list.insert(5);
+	list.insert(16);
+	list.insert(6);
+	list.insert(11);
+	list.insert(12);
+	list.printList();
+	int n = list.middle();
+	System.out.println(n);
 
-	public static void main(String [] args){
-		java.util.Scanner inp = new java.util.Scanner(System.in);
-		java.util.ArrayList<String> words = new java.util.ArrayList<String>();
-		int count = 0;
-		while(inp.hasNext()){
-			words.add(inp.next());
-		}
-		count = Integer.parseInt(words.get(0));
-		System.out.println("Anagrams are");
-		for(int i = 0;i < count;i++){
-
-			if(isAnagram(words.get(2 * i + 1),words.get(2 *i + 2)))
-				System.out.println(words.get(2 * i + 1)+"\t"+words.get(2 *i + 2));
-		}
-
-	}
+}
 }
